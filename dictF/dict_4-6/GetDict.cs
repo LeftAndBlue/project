@@ -69,6 +69,10 @@ namespace dict_4_6
         {
             string filePath = @".\SaveLastDict.txt"; // 替换为你保存文件的路径
             string id;
+            if (File.Exists(filePath)==false)
+            {
+                File.Create(filePath).Close();
+            }
             // 读取文件中的内容
             using (StreamReader reader = new StreamReader(filePath))
             {
