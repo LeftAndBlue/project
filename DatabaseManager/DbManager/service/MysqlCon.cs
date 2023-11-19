@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DbManager.Models;
+using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Relational;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,27 +11,22 @@ namespace DbManager.service
 {
     internal class MysqlCon
     {
-
+        public MysqlCon() { }
+        public MysqlCon(string str) { }
 
         public string connectionString = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
-
-        public MysqlCon()
-        {
-
-        }
-        public MysqlCon(string str)
-        {
-
-        }
+        public string PrimaryKey = "";
+        public List<string> tableColumns = new List<string>();
         //获取表结构并识别数据库的主键。
         public void Entitybase(string tableName)
         {
             DbProviderFactory factory = MySql.Data.MySqlClient.MySqlClientFactory.Instance;
-
-            using (DbConnection connection = factory.CreateConnection())
-            {
+            DbConnection connection = factory.CreateConnection();
+           
+                //进行数据库连接
                 connection.ConnectionString = connectionString;
                 connection.Open();
+                //获取表列的信息
                 DataTable columnsSchema = connection.GetSchema("Columns", new string[] { null, null, tableName });
                 foreach (DataRow columnRow in columnsSchema.Rows)
                 {
@@ -38,10 +34,15 @@ namespace DbManager.service
                     string columnKey = columnRow["COLUMN_KEY"].ToString();
                     if (columnKey == "PRI")
                     {
-                        Console.WriteLine($"Primary key found: {columnName}");
+                        PrimaryKey = columnName;
+                        //Console.WriteLine($"Primary key found: {columnName}");
                     }
+                   
+                    
+                        tableColumns.Add(columnName);
+                    
                 }
+                EntityBase entityBase = new EntityBase(tableColumns, PrimaryKey,connection,tableName);              
             }
         }
     }
-}

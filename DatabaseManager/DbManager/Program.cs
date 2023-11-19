@@ -11,7 +11,7 @@ namespace DbManager
         {
            
             MysqlCon mysqlCon = new MysqlCon();
-            mysqlCon.Entitybase("Person");
+            mysqlCon.Entitybase(1);
            
 
             //try
