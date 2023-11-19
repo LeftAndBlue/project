@@ -23,3 +23,6 @@
 3. 因为是单机，而且特别小。就用了文件流进行的单词Id的记录，下次启动可以从背到的地方开始
 
 ![image-20231119220347349](C:\Users\15975\AppData\Roaming\Typora\typora-user-images\image-20231119220347349.png)
+
+注：没有图床，可以去CSDN看
+`https://blog.csdn.net/m0_46319477/article/details/134496743`
