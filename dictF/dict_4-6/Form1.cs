@@ -12,6 +12,9 @@ namespace dict_4_6
         private void Form1_Load(object sender, EventArgs e)
         {
             GetDict getDict = new GetDict();
+            string str = getDict.phonetic;
+            str = str.Replace("\n", "  ").Trim();
+
             label1.Text = getDict.word;
             label2.Text = getDict.translate;
             if (string.IsNullOrEmpty(getDict.distortion))
@@ -22,7 +25,7 @@ namespace dict_4_6
             {
                 label3.Text = getDict.distortion;
             }
-            label4.Text = getDict.phonetic;
+            label4.Text = str;
             label5.Text = getDict.samples;
 
         }
@@ -32,6 +35,9 @@ namespace dict_4_6
             int temp = int.Parse(getDict.id) + 1;
             getDict.SaveLastVisitedWordToStorage(temp.ToString());
 
+            string str = getDict.phonetic;
+            str = str.Replace("\n", "  ").Trim();
+
             label1.Text = getDict.word;
             label2.Text = getDict.translate;
             if (string.IsNullOrEmpty(getDict.distortion))
@@ -42,7 +48,7 @@ namespace dict_4_6
             {
                 label3.Text = getDict.distortion;
             }
-            label4.Text = getDict.phonetic;
+            label4.Text = str;
             label5.Text = getDict.samples;
         }
     }
